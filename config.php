@@ -5,11 +5,6 @@ $Config = array(
 
 );
 
-require_once 'BaseClass.php';
-require_once 'DataFile.php';
-require_once 'Project.php';
-//require_once 'Task.php';
-
 /**
  * Class Config
  * @method static string TimesheetDataFile()
