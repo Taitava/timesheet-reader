@@ -4,6 +4,7 @@
 /**
  * Class DataFile
  * @method static SimpleXMLElement Projects()
+ * @method static SimpleXMLElement Tasks()
  */
 class DataFile
 {
