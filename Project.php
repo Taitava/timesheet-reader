@@ -23,6 +23,11 @@ class Project extends BaseClass
 	
 	protected static $id_field = 'projectId';
 	
+	/**
+	 * @var null|Relation_1toN
+	 */
+	private $tasks = null;
+	
 	protected $fields = array(
 		'projectId' => null,
 		'name' => null,
@@ -39,6 +44,18 @@ class Project extends BaseClass
 		'network' => null,
 	);
 	
+	protected $printable_fields = array(
+		'projectId',
+		'name',
+		'description',
+		'employer',
+		'location',
+		'status',
+		'salary',
+		'lastUpdateFormatted',
+		'CountTasks',
+	);
+	
 	public static function LoadProjects()
 	{
 		/** @var SimpleXMLElement $project */
@@ -48,8 +65,26 @@ class Project extends BaseClass
 		}
 	}
 	
+	public function lastUpdateFormatted($format = 'j.n.Y')
+	{
+		$seconds = $this->lastUpdate / 1000;
+		return date($format, $seconds);
+	}
 	
+	/**
+	 * @return null|Relation_1toN
+	 */
+	public function Tasks()
+	{
+		if (!$this->tasks)
+		{
+			$this->tasks = new Relation_1toN($this, Task::getByProject($this));
+		}
+		return $this->tasks;
+	}
 	
-	
-	
+	public function CountTasks()
+	{
+		return $this->Tasks()->count();
+	}
 }
