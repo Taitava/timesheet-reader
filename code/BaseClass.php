@@ -5,6 +5,8 @@ class BaseClass
 {
 	protected static $instances = array();
 	protected static $id_field = 'none';
+	protected static $xml_element = '';
+	protected static $default_sort = null;
 	
 	protected $fields = array();
 	protected $printable_fields = array();
@@ -69,7 +71,26 @@ class BaseClass
 		}
 	}
 	
-	protected static function load_from_xml(SimpleXMLElement $xml)
+	public static function Load()
+	{
+		foreach (call_user_func(array('DataFile', static::$xml_element))->children() as $instance)
+		{
+			static::load_from_xml($instance);
+		}
+		if (static::$default_sort)
+		{
+			if (is_array(static::$default_sort))
+			{
+				static::Sort(static::$default_sort[0], static::$default_sort[1]);
+			}
+			else
+			{
+				static::Sort(static::$default_sort);
+			}
+		}
+	}
+	
+	private static function load_from_xml(SimpleXMLElement $xml)
 	{
 		$instance = new static;
 		/** @var SimpleXMLElement $node */
@@ -115,6 +136,29 @@ class BaseClass
 			return $fields;
 		}
 		
+	}
+	
+	public static function Sort($field, $order = 'ASC')
+	{
+		$order = strtoupper($order);
+		uasort(static::$instances, function (BaseClass $instance_a, BaseClass $instance_b) use ($field, $order)
+		{
+			$value_a = $instance_a->$field;
+			$value_b = $instance_b->$field;
+			$direction = ($order == 'ASC') ? 1 : -1;
+			if ($value_a > $value_b)
+			{
+				return $direction;
+			}
+			elseif ($value_a < $value_b)
+			{
+				return -$direction;
+			}
+			else
+			{
+				return 0;
+			}
+		});
 	}
 	
 	public static function byID($id)

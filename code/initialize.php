@@ -11,5 +11,5 @@ require_once 'HTML.php';
 require_once 'Relation.php';
 
 DataFile::Load();
-Task::LoadTasks();
-Project::LoadProjects();
+Task::Load();
+Project::Load();
