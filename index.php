@@ -1,6 +1,6 @@
 <?php
 
-require_once 'initialize.php';
+require_once 'code/initialize.php';
 
 echo "Count projects: ".count(Project::All())."<br>";
 

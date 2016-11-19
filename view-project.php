@@ -1,6 +1,6 @@
 <?php
 
-require_once 'initialize.php';
+require_once 'code/initialize.php';
 
 //$project_id = $_GET['project_id'];
 $project_id = 'b4b9190e014c403a9980b42e8ac91b95';
