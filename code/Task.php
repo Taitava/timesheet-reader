@@ -41,18 +41,15 @@ class Task extends BaseClass
 	);
 	
 	protected $printable_fields = array(
-		//'description',
-		//'Duration',
+		'description',
+		'Duration',
+		'Hours',
+		
 	);
 	
-	public static function LoadTasks()
-	{
-		/** @var SimpleXMLElement $task */
-		foreach (DataFile::Tasks()->children() as $task)
-		{
-			self::load_from_xml($task);
-		}
-	}
+	protected static $xml_element = 'tasks';
+	
+	protected static $default_sort = array('description', 'ASC');
 	
 	public static function getByProject(Project $project)
 	{
@@ -67,6 +64,16 @@ class Task extends BaseClass
 	
 	public function Duration()
 	{
-		//$seconds = $this->st
+		return gmdate('H:i', $this->get_duration_seconds());
+	}
+	
+	public function Hours()
+	{
+		return round($this->get_duration_seconds() / 60 / 60,2);
+	}
+	
+	private function get_duration_seconds()
+	{
+		return strtotime($this->endDate) - strtotime($this->startDate);
 	}
 }
