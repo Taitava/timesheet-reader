@@ -18,6 +18,16 @@ class Relation_1toN
 		return count($this->relation_n);
 	}
 	
+	public function Sort($field, $order = 'ASC')
+	{
+		$sort_instances = $this->relation_n;
+		uasort($sort_instances, function (BaseClass $instance_a, BaseClass $instance_b) use ($field, $order)
+		{
+			return BaseClass::SortComparisonMethod($instance_a, $instance_b, $field, $order);
+		});
+		return $sort_instances;
+	}
+	
 	public function items()
 	{
 		return $this->relation_n;

@@ -81,11 +81,11 @@ class BaseClass
 		{
 			if (is_array(static::$default_sort))
 			{
-				static::Sort(static::$default_sort[0], static::$default_sort[1]);
+				static::$instances = static::Sort(static::$default_sort[0], static::$default_sort[1]);
 			}
 			else
 			{
-				static::Sort(static::$default_sort);
+				static::$instances = static::Sort(static::$default_sort);
 			}
 		}
 	}
@@ -140,25 +140,32 @@ class BaseClass
 	
 	public static function Sort($field, $order = 'ASC')
 	{
-		$order = strtoupper($order);
-		uasort(static::$instances, function (BaseClass $instance_a, BaseClass $instance_b) use ($field, $order)
+		$sort_instances = static::$instances;
+		uasort($sort_instances, function (BaseClass $instance_a, BaseClass $instance_b) use ($field, $order)
 		{
-			$value_a = $instance_a->$field;
-			$value_b = $instance_b->$field;
-			$direction = ($order == 'ASC') ? 1 : -1;
-			if ($value_a > $value_b)
-			{
-				return $direction;
-			}
-			elseif ($value_a < $value_b)
-			{
-				return -$direction;
-			}
-			else
-			{
-				return 0;
-			}
+			return BaseClass::SortComparisonMethod($instance_a, $instance_b, $field, $order);
 		});
+		return $sort_instances;
+	}
+	
+	public static function SortComparisonMethod(BaseClass $instance_a, BaseClass $instance_b, $field, $order)
+	{
+		$order = strtoupper($order);
+		$value_a = $instance_a->$field;
+		$value_b = $instance_b->$field;
+		$direction = ($order == 'ASC') ? 1 : -1;
+		if ($value_a > $value_b)
+		{
+			return $direction;
+		}
+		elseif ($value_a < $value_b)
+		{
+			return -$direction;
+		}
+		else
+		{
+			return 0;
+		}
 	}
 	
 	public static function byID($id)
