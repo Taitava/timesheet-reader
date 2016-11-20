@@ -50,6 +50,12 @@ class Project extends BaseClass
 		'network' => null,
 	);
 	
+	protected static $field_labels = array(
+		'lastUpdateFormatted' => 'last updated',
+		'CountTasks' => 'count tasks',
+		
+	);
+	
 	protected $printable_fields = array(
 		'name',
 		'description',

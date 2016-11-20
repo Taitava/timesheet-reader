@@ -1,13 +1,17 @@
 <?php
 
-
 abstract class BaseClass
 {
+	private static $instances;
+	private static $id_field;
+	private static $field_labels = array();
+	private static $default_sort;
+	private static $xml_element;
+	
 	protected $fields = array();
 	protected $printable_fields = array();
 	
 	private $html = null;
-	
 	
 	public function __get($name)
 	{
@@ -137,6 +141,21 @@ abstract class BaseClass
 			return $fields;
 		}
 		
+	}
+	
+	public function FieldLabels()
+	{
+		$labels = isset(static::$field_labels) ? static::$field_labels : array();
+		$fields = array_keys($this->fields);
+		$fields = array_combine($fields, $fields);
+		$methods = get_class_methods($this->ClassName());
+		$methods = array_combine($methods, $methods);
+		return $labels + $fields + $methods;
+	}
+	
+	public function FieldLabel($field)
+	{
+		return $this->FieldLabels()[$field];
 	}
 	
 	public static function Sort($field, $order = 'ASC')

@@ -24,7 +24,7 @@ class HTML
 		$elements = array();
 		foreach ($this->instance->getOutputFields() as $field => $value)
 		{
-			$element = new HTMLElement($tag, $field_label_as_value ? $field : $value);
+			$element = new HTMLElement($tag, $field_label_as_value ? $this->instance->FieldLabel($field) : $value);
 			$elements[] = $element->setAttributes($attributes);
 		}
 		return new HTMLSet($elements);
