@@ -32,11 +32,20 @@ class DataFile
 	{
 		if (!is_object(self::$xml)) throw new Exception('XML DataFile must be loaded before accessing data records.');
 		$name = strtolower($name);
-		return self::$xml->$name;
+		return self::getElement($name);
 	}
 	
 	public static function xml()
 	{
 		return self::$xml;
+	}
+	
+	/**
+	 * @param $name
+	 * @return SimpleXMLElement
+	 */
+	public static function getElement($name)
+	{
+		return self::$xml->$name;
 	}
 }
