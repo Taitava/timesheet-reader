@@ -3,6 +3,8 @@
 
 class CombinedTask extends Task
 {
+	protected static $instances = array();
+	
 	/**
 	 * @var Relation_1toN
 	 */
