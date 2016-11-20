@@ -15,6 +15,7 @@ class HTML
 	
 	/**
 	 * @param $tag
+	 * @param bool $field_label_as_value
 	 * @param array $attributes
 	 * @return HTMLSet
 	 */
