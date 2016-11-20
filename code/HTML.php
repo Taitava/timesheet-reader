@@ -62,6 +62,11 @@ class HTMLSet
 		}
 		return $result;
 	}
+	
+	public function elements()
+	{
+		return $this->elements;
+	}
 }
 
 class HTMLElement
@@ -73,7 +78,7 @@ class HTMLElement
 	public function __construct($tag, $innerHTML)
 	{
 		$this->tag = $tag;
-		$this->innerHTML = $innerHTML;
+		$this->innerHTML = self::escape($innerHTML);
 	}
 	
 	public function __toString()
@@ -87,7 +92,7 @@ class HTMLElement
 		$element .= '>';
 		if ($this->innerHTML)
 		{
-			$element .= self::escape($this->innerHTML) . "</$this->tag>";
+			$element .= $this->innerHTML . "</$this->tag>";
 		}
 		return $element;
 	}
@@ -105,5 +110,21 @@ class HTMLElement
 	{
 		$this->attributes = $attributes;
 		return $this;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getInnerHTML()
+	{
+		return $this->innerHTML;
+	}
+	
+	/**
+	 * @param mixed $innerHTML
+	 */
+	public function setInnerHTML($innerHTML)
+	{
+		$this->innerHTML = $innerHTML;
 	}
 }
