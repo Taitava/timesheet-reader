@@ -21,7 +21,7 @@ class CombinedTask extends Task
 	
 	public function Duration()
 	{
-		return gmdate('H:i', $this->tasks->sum('getDurationSeconds'));
+		return display_hours($this->tasks->sum('getDurationSeconds'));
 	}
 	
 	public function Hours()

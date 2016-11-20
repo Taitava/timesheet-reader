@@ -97,7 +97,12 @@ class Project extends BaseClass
 	
 	public function Duration()
 	{
-		return gmdate('H:i', $this->Tasks()->sum('getDurationSeconds'));
+		return display_hours($this->Tasks()->sum('getDurationSeconds'));
+	}
+	
+	public function Hours()
+	{
+		return $this->Tasks()->sum('getDurationSeconds') / 60 / 60;
 	}
 	
 }

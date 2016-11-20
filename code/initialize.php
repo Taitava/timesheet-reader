@@ -21,3 +21,18 @@ function footer()
 {
 	include 'code/footer.php';
 }
+
+function display_hours($total_seconds, $show_seconds=false)
+{
+	$hours = floor($total_seconds / 3600);
+	$minutes = floor(($total_seconds / 60) % 60);
+	$seconds = $total_seconds % 60;
+	if ($show_seconds)
+	{
+		return sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
+	}
+	else
+	{
+		return sprintf("%02d:%02d", $hours, $minutes);
+	}
+}

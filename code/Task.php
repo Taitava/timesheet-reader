@@ -66,7 +66,7 @@ class Task extends BaseClass
 	
 	public function Duration()
 	{
-		return gmdate('H:i', $this->getDurationSeconds());
+		return display_hours($this->getDurationSeconds());
 	}
 	
 	public function Hours()
