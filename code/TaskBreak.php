@@ -14,6 +14,9 @@
  */
 class TaskBreak extends BaseClass
 {
+	protected static $id_field = 'none';
+	protected static $default_sort = null;
+	
 	protected static $xml_element = 'breaks';
 	protected static $instances = array();
 	protected $fields = array(

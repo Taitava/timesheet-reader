@@ -21,6 +21,7 @@
  */
 class Task extends BaseClass
 {
+	protected static $id_field = 'none';
 	protected static $instances = array();
 	
 	protected $fields = array(

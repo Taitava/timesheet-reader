@@ -22,6 +22,7 @@ class Project extends BaseClass
 	protected static $instances = array();
 	protected static $xml_element = 'projects';
 	protected static $id_field = 'projectId';
+	protected static $default_sort = null;
 	
 	/**
 	 * @var null|Relation_1toN

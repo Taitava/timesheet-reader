@@ -3,10 +3,6 @@
 
 abstract class BaseClass
 {
-	protected static $id_field = 'none';
-	protected static $xml_element = '';
-	protected static $default_sort = null;
-	
 	protected $fields = array();
 	protected $printable_fields = array();
 	

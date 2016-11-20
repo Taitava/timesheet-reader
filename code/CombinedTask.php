@@ -4,6 +4,9 @@
 class CombinedTask extends Task
 {
 	protected static $instances = array();
+	protected static $id_field = 'none';
+	protected static $xml_element = '';
+	protected static $default_sort = null;
 	
 	/**
 	 * @var Relation_1toN
