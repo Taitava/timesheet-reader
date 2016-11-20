@@ -21,6 +21,8 @@
  */
 class Task extends BaseClass
 {
+	protected static $instances = array();
+	
 	protected $fields = array(
 		'taskId' => null,
 		'projectId' => null,
@@ -49,7 +51,12 @@ class Task extends BaseClass
 	
 	protected static $xml_element = 'tasks';
 	
-	protected static $default_sort = 'description';
+	protected static $default_sort = 'startDate';
+	
+	/**
+	 * @var Relation_1toN
+	 */
+	private $breaks;
 	
 	public static function getByProject(Project $project)
 	{
@@ -72,8 +79,27 @@ class Task extends BaseClass
 		return round($this->getDurationSeconds() / 60 / 60,2);
 	}
 	
-	public function getDurationSeconds()
+	public function getDurationSeconds($subtract_breaks = true)
 	{
-		return strtotime($this->endDate) - strtotime($this->startDate);
+		$seconds = strtotime($this->endDate) - strtotime($this->startDate);
+		if ($subtract_breaks) $seconds -= $this->getBreakSeconds();
+		return $seconds;
+	}
+	
+	public function getBreakSeconds()
+	{
+		return $this->Breaks()->sum('getDurationSeconds');
+	}
+	
+	/**
+	 * @return null|Relation_1toN
+	 */
+	public function Breaks()
+	{
+		if (!$this->breaks)
+		{
+			$this->breaks = new Relation_1toN($this, TaskBreak::getByTask($this));
+		}
+		return $this->breaks;
 	}
 }
