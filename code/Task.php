@@ -60,13 +60,7 @@ class Task extends BaseClass
 	
 	public static function getByProject(Project $project)
 	{
-		$tasks = array();
-		/** @var Task $task */
-		foreach (self::$instances as $task)
-		{
-			if ($project->projectId == $task->projectId) $tasks[] = $task;
-		}
-		return $tasks;
+		return static::getManyByField('projectId', $project->projectId);
 	}
 	
 	public function Duration()
