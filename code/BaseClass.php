@@ -1,9 +1,8 @@
 <?php
 
 
-class BaseClass
+abstract class BaseClass
 {
-	protected static $instances = array();
 	protected static $id_field = 'none';
 	protected static $xml_element = '';
 	protected static $default_sort = null;
@@ -66,14 +65,14 @@ class BaseClass
 		}
 		else
 		{
-			$id_field = self::$id_field;
+			$id_field = static::$id_field;
 			return $this->$id_field;
 		}
 	}
 	
 	public static function Load()
 	{
-		foreach (call_user_func(array('DataFile', static::$xml_element))->children() as $instance)
+		foreach (DataFile::getElement(static::$xml_element)->children() as $instance)
 		{
 			static::load_from_xml($instance);
 		}
@@ -109,6 +108,12 @@ class BaseClass
 		{
 			static::$instances[] = $instance;
 		}
+		return $instance;
+	}
+	
+	public function ClassName()
+	{
+		return get_class($this);
 	}
 	
 	/**
@@ -175,5 +180,25 @@ class BaseClass
 			return static::$instances[$id];
 		}
 		return null;
+	}
+	
+	public static function getManyByField($field, $value)
+	{
+		$instances = array();
+		/** @var BaseClass $instance */
+		foreach (static::$instances as $instance)
+		{
+			if ($instance->$field == $value)
+			{
+				$instances[] = $instance;
+			}
+		}
+		return $instances;
+	}
+	
+	public static function getOneByField($field, $value)
+	{
+		$instances = static::getManyByField($field, $value);
+		return empty($instances) ? null : $instances[0];
 	}
 }
