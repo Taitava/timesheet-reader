@@ -67,7 +67,7 @@ class HTMLSet
 class HTMLElement
 {
 	private $tag;
-	private $attributes;
+	private $attributes = array();
 	private $innerHTML;
 	
 	public function __construct($tag, $innerHTML)
