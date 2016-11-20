@@ -32,4 +32,19 @@ class Relation_1toN
 	{
 		return $this->relation_n;
 	}
+	
+	public function First()
+	{
+		return $this->relation_n[0];
+	}
+	
+	public function sum($field)
+	{
+		$sum = 0;
+		foreach ($this->relation_n as $instance)
+		{
+			$sum += $instance->$field;
+		}
+		return $sum;
+	}
 }

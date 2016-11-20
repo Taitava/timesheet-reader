@@ -7,6 +7,7 @@ require_once 'BaseClass.php';
 require_once 'DataFile.php';
 require_once 'Project.php';
 require_once 'Task.php';
+require_once 'CombinedTask.php';
 require_once 'HTML.php';
 require_once 'Relation.php';
 

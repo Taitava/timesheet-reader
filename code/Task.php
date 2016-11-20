@@ -49,7 +49,7 @@ class Task extends BaseClass
 	
 	protected static $xml_element = 'tasks';
 	
-	protected static $default_sort = array('description', 'ASC');
+	protected static $default_sort = 'description';
 	
 	public static function getByProject(Project $project)
 	{
@@ -64,15 +64,15 @@ class Task extends BaseClass
 	
 	public function Duration()
 	{
-		return gmdate('H:i', $this->get_duration_seconds());
+		return gmdate('H:i', $this->getDurationSeconds());
 	}
 	
 	public function Hours()
 	{
-		return round($this->get_duration_seconds() / 60 / 60,2);
+		return round($this->getDurationSeconds() / 60 / 60,2);
 	}
 	
-	private function get_duration_seconds()
+	public function getDurationSeconds()
 	{
 		return strtotime($this->endDate) - strtotime($this->startDate);
 	}
