@@ -50,15 +50,13 @@ class Project extends BaseClass
 	);
 	
 	protected $printable_fields = array(
-		//'projectId',
 		'name',
 		'description',
 		'employer',
-		'location',
-		'status',
-		'salary',
 		'lastUpdateFormatted',
 		'CountTasks',
+		'Duration',
+		
 	);
 	
 	public function lastUpdateFormatted($format = 'j.n.Y')
@@ -94,6 +92,11 @@ class Project extends BaseClass
 	public function CountTasks()
 	{
 		return $this->Tasks()->count();
+	}
+	
+	public function Duration()
+	{
+		return gmdate('H:i', $this->Tasks()->sum('getDurationSeconds'));
 	}
 	
 }
