@@ -15,3 +15,5 @@ foreach ($project->CombinedTasks()->items() as $task)
 	echo '<tr>'.$task->HTML()->many('td').'</tr>';
 }
 echo '</tbody></table>';
+
+footer();

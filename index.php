@@ -22,3 +22,5 @@ foreach (Project::All() as $project)
 	echo '</tr>';
 }
 echo '</tbody></table>';
+
+footer();

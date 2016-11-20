@@ -16,3 +16,8 @@ DataFile::Load();
 Task::Load();
 TaskBreak::Load();
 Project::Load();
+
+function footer()
+{
+	include 'code/footer.php';
+}

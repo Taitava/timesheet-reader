@@ -40,6 +40,11 @@ class DataFile
 		return self::$xml;
 	}
 	
+	public static function FileTime($format = 'j.n.Y H:i:s')
+	{
+		return date($format, filemtime(Config::TimesheetDataFile()));
+	}
+	
 	/**
 	 * @param $name
 	 * @return SimpleXMLElement
